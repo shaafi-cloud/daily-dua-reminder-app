@@ -77,3 +77,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 The Daily Dua Reminder is a web application designed to help users set and receive notifications for their daily duas. This application allows users to set specific times for their duas, ensuring they never miss a moment of reflection and prayer
 >>>>>>> 0a85f13cf83a5a0afa3516f852c67b528b492d85
 # daily-dua-reminder-app
+# daily-dua-reminder-app
