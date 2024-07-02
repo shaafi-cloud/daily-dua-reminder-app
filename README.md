@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -70,4 +71,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 # daily-dua-reminder-app
 # daily-dua-reminder-app
+# daily-dua-reminder-app
+=======
+# daily-dua-reminder-app
+The Daily Dua Reminder is a web application designed to help users set and receive notifications for their daily duas. This application allows users to set specific times for their duas, ensuring they never miss a moment of reflection and prayer
+>>>>>>> 0a85f13cf83a5a0afa3516f852c67b528b492d85
 # daily-dua-reminder-app
