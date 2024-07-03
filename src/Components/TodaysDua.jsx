@@ -1,16 +1,18 @@
 import React from 'react'
 import useDua from '../Hooks/useDua'
+import { useNavigate } from 'react-router-dom'
 
 
 const TodaysDua = () => {
-const {
-    handleClick
-} = useDua();
+  const naviate = useNavigate();
+  const handleClick = () => {
+    naviate('./SetDua')
+  }
 
   return (
     <div>
         
-      <div className='flex justify-center h-full bg-cover bg-center' style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('/prayer.jpg')`}}>
+      <div className='flex justify-center h-screen bg-cover bg-center' style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('/prayer.jpg')`}}>
         <div className="text-center mt-20">
           <h2 className="text-4xl font-bold text-white mb-4">Today's Dua</h2>
 
