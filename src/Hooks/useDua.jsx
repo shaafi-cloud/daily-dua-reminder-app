@@ -1,5 +1,5 @@
-// src/hooks/useDua.js
 import { useState, useRef, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 
  const useDua = () => {
   const [dua, setDua] = useState('');
@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from 'react';
   const [time, setTime] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [reminder, setReminder] = useState([]);
+  const [reminders, setReminder] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(null);
   const timeoutRef = useRef({});
@@ -45,7 +45,7 @@ import { useState, useRef, useEffect } from 'react';
     if (timeDifference > 0) {
       const newReminder = { dua, date, time };
 
-      const isDuplicate = reminder.some(
+      const isDuplicate = reminders.some(
         (reminder, index) => reminder.dua === dua && reminder.date === date && reminder.time === time && index !== currentIndex
       );
 
@@ -58,15 +58,15 @@ import { useState, useRef, useEffect } from 'react';
       }
 
       if (isEditing) {
-        const updatedReminders = [...reminder];
-        clearTimeout(timeoutRef.current[reminder[currentIndex]]);
+        const updatedReminders = [...reminders];
+        clearTimeout(timeoutRef.current[reminders[currentIndex]]);
         updatedReminders[currentIndex] = newReminder;
         setReminder(updatedReminders);
         setSuccessMessage('Reminder updated successfully');
         setIsEditing(false);
         setCurrentIndex(null);
       } else {
-        setReminder([...reminder, newReminder]);
+        setReminder([...reminders, newReminder]);
         setSuccessMessage('Reminder set successfully');
       }
       setErrorMessage('');
@@ -98,15 +98,15 @@ import { useState, useRef, useEffect } from 'react';
   };
 
   const handleDelete = (index) => {
-    const reminderToDelete = reminder[index];
+    const reminderToDelete = reminders[index];
     clearTimeout(timeoutRef.current[reminderToDelete]);
 
-    setReminder(reminder.filter((_, i) => i !== index));
+    setReminder(reminders.filter((_, i) => i !== index));
     delete timeoutRef.current[reminderToDelete];
   };
 
   const handleEdit = (index) => {
-    const reminderToEdit = reminder[index];
+    const reminderToEdit = reminders[index];
     setDua(reminderToEdit.dua);
     setDate(reminderToEdit.date);
     setTime(reminderToEdit.time);
@@ -120,14 +120,14 @@ import { useState, useRef, useEffect } from 'react';
     time, setTime,
     successMessage, setSuccessMessage,
     errorMessage, setErrorMessage,
-    reminder, setReminder,
+    reminders, setReminder,
     isEditing, setIsEditing,
     currentIndex, setCurrentIndex,
     timeoutRef,
     handleSubmit,
     handleDelete,
     handleEdit,
-    playNotificationSound
+    playNotificationSound,
   };
 };
 

@@ -1,14 +1,11 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import TodaysDua from '../Components/TodaysDua';
+import { Link } from 'react-router-dom';
 
 
 const Home = () => {
 
-  const naviate = useNavigate();
-  const handleClick = () => {
-    naviate('./SetDua')
-  }
+
 
   return (
     <div className='relative h-screen overflow-hidden'>
@@ -17,8 +14,8 @@ const Home = () => {
        <div className="flex flex-row justify-between w-full bg-green-600 p-4">
           <h1 className="text-2xl font-bold text-white">Daily Dua Reminder</h1>
           <div className='flex flex-row justify-between items-center pr-16'>
-          <h1 className='text-xl text-white pr-7'>Set Dua</h1>
-          <h1 className='text-xl text-white'>Reminders</h1>
+          <h1 className='text-xl text-white pr-7'><Link to="setdua">Set Dua</Link></h1>
+          <h1 className='text-xl text-white'><Link to="Reminders">Your Reminders</Link></h1>
           </div>
       </div> 
 
