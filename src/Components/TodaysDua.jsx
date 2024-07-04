@@ -1,25 +1,12 @@
 import React from 'react'
 import useDua from '../Hooks/useDua'
-<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
-
-
-
-const TodaysDua = () => {
-
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate('/SetDua')
-=======
-import { useNavigate } from 'react-router-dom'
 
 
 const TodaysDua = () => {
   const naviate = useNavigate();
   const handleClick = () => {
     naviate('./SetDua')
->>>>>>> d2c2d78d9f5fd20e29a57696862b3b1f76ee3ef0
   }
 
   return (

@@ -4,10 +4,10 @@ import useDua from './useDua';
 export  const DuaContext = createContext();
 
 export  const DuaProvider = ({ children }) => {
-  const dua = useDua();
+  const duaValue = useDua();
   
   return (
-    <DuaContext.Provider value={dua}>
+    <DuaContext.Provider value={duaValue}>
       {children}
     </DuaContext.Provider>
   );
