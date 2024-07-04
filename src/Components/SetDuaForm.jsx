@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useContext } from 'react'
 import { DuaContext } from '../Hooks/duaProvider';
 import { Link } from 'react-router-dom';
@@ -46,6 +47,15 @@ const SetDuaForm = () => {
           </div>
         </form>
       </div>
+=======
+import React from 'react'
+
+const SetDuaForm = () => {
+  return (
+    <div>
+        
+    </div>
+>>>>>>> d2c2d78d9f5fd20e29a57696862b3b1f76ee3ef0
   )
 }
 
