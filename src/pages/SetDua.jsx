@@ -1,27 +1,11 @@
 import { Link } from "react-router-dom";
-import React, { useContext } from "react";
 import SetDuaForm from "../Components/SetDuaForm";
-import { DuaContext } from "../Hooks/duaProvider";
 
 const SetDua = () => {
-  const {
-    dua,
-    setDua,
-    successMessage,
-    setSuccessMessage,
-    errorMessage,
-    setErrorMessage,
-    date,
-    setDate,
-    time,
-    setTime,
-    isEditing,
-    setIsEditing,
-    handleSubmit,
-  } = useContext(DuaContext);
-
+ 
   return (
     <div className="relative h-screen overflow-hidden">
+
       {/* Header */}
       <div className="flex flex-row justify-between w-full bg-green-600 p-4">
         <h1 className="text-2xl font-bold text-white">Daily Dua Reminder</h1>

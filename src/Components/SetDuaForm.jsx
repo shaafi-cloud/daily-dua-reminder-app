@@ -1,15 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { DuaContext } from "../Hooks/duaProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const SetDuaForm = () => {
   const {
     dua,
     setDua,
-    successMessage,
-    setSuccessMessage,
-    errorMessage,
-    setErrorMessage,
+    // setSuccessMessage,
+    // setErrorMessage,
     date,
     setDate,
     time,
@@ -19,17 +21,29 @@ const SetDuaForm = () => {
     handleSubmit,
   } = useContext(DuaContext);
 
+  const navigate = useNavigate();
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    const isSubmittedSuccessfully = handleSubmit(event);
+    if (isSubmittedSuccessfully) {
+      navigate('/reminders'); //
+    }
+  }
+ 
+
+
+
   return (
-    <div
-      className="flex justify-center items-center h-full bg-cover bg-center"
+    <div className="flex justify-center items-center h-full bg-cover bg-center"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('/prayer.jpg')`,
-      }}
-    >
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('/prayer.jpg')`,}}>
+
+      <ToastContainer />
+
       <form
-        onSubmit={handleSubmit}
-        className="bg-white p-10 rounded-xl shadow-lg flex flex-col justify-center items-center w-full max-w-md mb-12"
-      >
+        onSubmit={handleFormSubmit}
+        className="bg-white p-10 rounded-xl shadow-lg flex flex-col justify-center items-center w-full max-w-md mb-12">
         <h1 className="text-4xl font-bold flex justify-center mb-4">Set Dua</h1>
         <div className="flex flex-col items-start mb-4 w-full">
           <label htmlFor="dua" className="text-xl font-semibold">
