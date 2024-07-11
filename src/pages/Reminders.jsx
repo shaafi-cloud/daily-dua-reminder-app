@@ -1,4 +1,3 @@
-// src/pages/Reminders.js
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 import useDua from '../Hooks/useDua'

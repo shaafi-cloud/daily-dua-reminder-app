@@ -10,8 +10,6 @@ const SetDuaForm = () => {
   const {
     dua,
     setDua,
-    // setSuccessMessage,
-    // setErrorMessage,
     date,
     setDate,
     time,
@@ -27,7 +25,10 @@ const SetDuaForm = () => {
     event.preventDefault();
     const isSubmittedSuccessfully = handleSubmit(event);
     if (isSubmittedSuccessfully) {
-      navigate('/reminders'); //
+      setTimeout(() => {
+        navigate('/reminders');
+      }, 2000)
+      
     }
   }
  

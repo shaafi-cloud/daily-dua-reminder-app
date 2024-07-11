@@ -1,15 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
 
  const useDua = () => {
   const [dua, setDua] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
-  // const [successMessage, setSuccessMessage] = useState('');
-  // const [errorMessage, setErrorMessage] = useState('');
-  const [reminders, setReminder] = useState([]);
+  const [reminder, setReminder] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(null);
   const timeoutRef = useRef({});
@@ -47,32 +43,27 @@ import { toast } from 'react-toastify';
     if (timeDifference > 0) {
       const newReminder = { dua, date, time };
 
-      const isDuplicate = reminders.some(
+      const isDuplicate = reminder.some(
         (reminder, index) => reminder.dua === dua && reminder.date === date && reminder.time === time && index !== currentIndex
       );
 
       if (isDuplicate) {
-        toast.error("Reminder already exists")
-        return false;
-        setTimeout(() => {
-        }, 4000);
+        toast.error('Reminder already exists.');
         return;
       }
 
       if (isEditing) {
-        const updatedReminders = [...reminders];
-        clearTimeout(timeoutRef.current[reminders[currentIndex]]);
+        const updatedReminders = [...reminder];
+        clearTimeout(timeoutRef.current[reminder[currentIndex]]);
         updatedReminders[currentIndex] = newReminder;
         setReminder(updatedReminders);
-        toast.success("Reminder updated successfully!")
+        toast.success('Reminder updated successfully');
         setIsEditing(false);
         setCurrentIndex(null);
       } else {
-        setReminder([...reminders, newReminder]);
-        toast.success("Reminder set successfully!")
-        return true;
+        setReminder([...reminder, newReminder]);
+        toast.success('Reminder set successfully');
       }
-
       const timeoutId = setTimeout(() => {
         if (Notification.permission === 'granted') {
           new Notification(`It's time for your: ${dua}`);
@@ -82,32 +73,25 @@ import { toast } from 'react-toastify';
 
       timeoutRef.current[newReminder] = timeoutId;
 
-      setTimeout(() => {
-      }, 4000);
-
       setDua('');
       setDate('');
       setTime('');
-
     } else {
-      toast.error("Please select a future time");
-      return false;
-      setTimeout(() => {
-      }, 4000);
+      toast.error('Please select a future time for the notification.');
     }
   };
 
   const handleDelete = (index) => {
-    const reminderToDelete = reminders[index];
+    const reminderToDelete = reminder[index];
     clearTimeout(timeoutRef.current[reminderToDelete]);
 
-    setReminder(reminders.filter((_, i) => i !== index));
+    setReminder(reminder.filter((_, i) => i !== index));
     delete timeoutRef.current[reminderToDelete];
-    toast.success("Reminder deleted successfully")
+    toast.success("Reminder deleted successfully!")
   };
 
   const handleEdit = (index) => {
-    const reminderToEdit = reminders[index];
+    const reminderToEdit = reminder[index];
     setDua(reminderToEdit.dua);
     setDate(reminderToEdit.date);
     setTime(reminderToEdit.time);
@@ -119,14 +103,14 @@ import { toast } from 'react-toastify';
     dua, setDua,
     date, setDate,
     time, setTime,
-    reminders, setReminder,
+    reminder, setReminder,
     isEditing, setIsEditing,
     currentIndex, setCurrentIndex,
     timeoutRef,
     handleSubmit,
     handleDelete,
     handleEdit,
-    playNotificationSound,
+    playNotificationSound
   };
 };
 

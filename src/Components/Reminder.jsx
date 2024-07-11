@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Reminder = () => {
-  const { handleEdit, handleDelete, reminders } = useContext(DuaContext);
+  const { handleEdit, handleDelete, reminder } = useContext(DuaContext);
   const navigate = useNavigate();
 
   const handleEditAndNavigate = (index) => {
@@ -30,16 +30,16 @@ const Reminder = () => {
             </h1>
           </div>
           <div className="flex flex-wrap justify-center mt-10">
-            {reminders.map((reminders, index) => (
+            {reminder.map((reminder, index) => (
               <div
                 key={index}
                 className="m-2 p-4 bg-white rounded-lg shadow-lg flex flex-col items-start"
               >
                 <p className="font-semibold text-lg overflow-hidden overflow-ellipsis">
-                  {reminders.dua}
+                  {reminder.dua}
                 </p>
-                <p className="text-gray-700">Date: {reminders.date}</p>
-                <p className="text-gray-700">Time: {reminders.time}</p>
+                <p className="text-gray-700">Date: {reminder.date}</p>
+                <p className="text-gray-700">Time: {reminder.time}</p>
                 <div className="flex flex-row space-x-4 mt-2">
                   <button
                     onClick={() => handleEditAndNavigate(index)}
