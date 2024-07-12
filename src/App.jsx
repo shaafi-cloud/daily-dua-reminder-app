@@ -6,6 +6,10 @@ import SetDua from './pages/SetDua'
 import Reminders from './pages/Reminders'
 import { DuaProvider } from './Hooks/duaProvider'
 import { ToastContainer } from 'react-toastify'
+import SignInForm from './pages/SignIn'
+import SignUpForm from './pages/SignUp'
+import Logout from './pages/Logout'
+
 
 
 
@@ -17,10 +21,11 @@ const App = () => {
       <DuaProvider>
         <Router>
           <Routes>
-            <Route path='/' element={<Home/>}/>
-            <Route path='/SetDua' element={<SetDua/>}/>
-            <Route path='/TodaysDua' element={<TodaysDua/>}/>
-            <Route path='/Reminders' element={<Reminders/>}/>
+          <Route path="/" element={<SignInForm/>} />
+          <Route path='/Home' element={<Home/>}/>
+          <Route path="/signup" element={<SignUpForm />} />
+          <Route path="/reminders" element={<Reminders />} />
+          <Route path="/setdua" element={<SetDua />} />
           </Routes>
           <ToastContainer/>
       </Router>

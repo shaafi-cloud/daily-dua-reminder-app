@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { database } from '../Firebase'; // Make sure you have your Firebase setup here
+import { ref, set, onValue, remove } from 'firebase/database'; // Firebase Realtime Database functions
 
- const useDua = () => {
+const useDua = () => {
   const [dua, setDua] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
-  const [reminder, setReminder] = useState([]);
+  const [reminders, setReminders] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(null);
   const timeoutRef = useRef({});
@@ -22,6 +24,15 @@ import { toast } from 'react-toastify';
     if (Notification.permission !== 'granted') {
       Notification.requestPermission();
     }
+
+    // Fetch data from Firebase
+    const remindersRef = ref(database, 'reminders/');
+    onValue(remindersRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setReminders(Object.values(data));
+      }
+    });
   }, []);
 
   const playNotificationSound = (dua) => {
@@ -43,7 +54,7 @@ import { toast } from 'react-toastify';
     if (timeDifference > 0) {
       const newReminder = { dua, date, time };
 
-      const isDuplicate = reminder.some(
+      const isDuplicate = reminders.some(
         (reminder, index) => reminder.dua === dua && reminder.date === date && reminder.time === time && index !== currentIndex
       );
 
@@ -53,17 +64,26 @@ import { toast } from 'react-toastify';
       }
 
       if (isEditing) {
-        const updatedReminders = [...reminder];
-        clearTimeout(timeoutRef.current[reminder[currentIndex]]);
+        const updatedReminders = [...reminders];
+        clearTimeout(timeoutRef.current[reminders[currentIndex]]);
         updatedReminders[currentIndex] = newReminder;
-        setReminder(updatedReminders);
+        setReminders(updatedReminders);
         toast.success('Reminder updated successfully');
         setIsEditing(false);
         setCurrentIndex(null);
+
+        // Update in Firebase
+        set(ref(database, 'reminders/' + reminders[currentIndex].id), newReminder);
       } else {
-        setReminder([...reminder, newReminder]);
+        const newReminderId = `reminder_${Date.now()}`;
+        const updatedReminders = [...reminders, { ...newReminder, id: newReminderId }];
+        setReminders(updatedReminders);
         toast.success('Reminder set successfully');
+
+        // Save to Firebase
+        set(ref(database, 'reminders/' + newReminderId), { ...newReminder, id: newReminderId });
       }
+
       const timeoutId = setTimeout(() => {
         if (Notification.permission === 'granted') {
           new Notification(`It's time for your: ${dua}`);
@@ -82,16 +102,20 @@ import { toast } from 'react-toastify';
   };
 
   const handleDelete = (index) => {
-    const reminderToDelete = reminder[index];
+    const reminderToDelete = reminders[index];
     clearTimeout(timeoutRef.current[reminderToDelete]);
 
-    setReminder(reminder.filter((_, i) => i !== index));
-    delete timeoutRef.current[reminderToDelete];
-    toast.success("Reminder deleted successfully!")
+    const updatedReminders = reminders.filter((_, i) => i !== index);
+    setReminders(updatedReminders);
+
+    // Delete from Firebase
+    remove(ref(database, 'reminders/' + reminderToDelete.id));
+
+    toast.success("Reminder deleted successfully!");
   };
 
   const handleEdit = (index) => {
-    const reminderToEdit = reminder[index];
+    const reminderToEdit = reminders[index];
     setDua(reminderToEdit.dua);
     setDate(reminderToEdit.date);
     setTime(reminderToEdit.time);
@@ -103,7 +127,7 @@ import { toast } from 'react-toastify';
     dua, setDua,
     date, setDate,
     time, setTime,
-    reminder, setReminder,
+    reminders, setReminders,
     isEditing, setIsEditing,
     currentIndex, setCurrentIndex,
     timeoutRef,
@@ -114,4 +138,4 @@ import { toast } from 'react-toastify';
   };
 };
 
-export default useDua
+export default useDua;

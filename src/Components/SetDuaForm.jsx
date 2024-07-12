@@ -32,9 +32,6 @@ const SetDuaForm = () => {
     }
   }
  
-
-
-
   return (
     <div className="flex justify-center items-center h-full bg-cover bg-center"
       style={{

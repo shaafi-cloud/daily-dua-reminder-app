@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const TodaysDua = () => {
   const naviate = useNavigate();
   const handleClick = () => {
-    naviate('./SetDua')
+    naviate('/setDua')
   }
 
   return (

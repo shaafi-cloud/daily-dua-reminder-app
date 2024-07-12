@@ -16,14 +16,17 @@ const Reminders = () => {
   return (
     
     <div className='relative h-screen overflow-hidden'>
+      
       {/* Header */}
          <div className="flex flex-row justify-between w-full bg-green-600 p-4">
           <h1 className="text-2xl font-bold text-white">Daily Dua Reminder</h1>
           <div className='flex flex-row justify-between items-center space-x-5 pr-20'>
-          <h1 className='text-xl text-white pr-10'><Link to="/">Home</Link></h1>
+          <h1 className='text-xl text-white pr-10'><Link to="/Home">Home</Link></h1>
           <h1 className='text-xl text-white'><Link to="/setdua">Set Dua</Link></h1>
+          <h1 className='text-xl text-white'><Link to="/">Log out</Link></h1>
           </div>
       </div> 
+      
       <Reminder/>
     </div>
   );

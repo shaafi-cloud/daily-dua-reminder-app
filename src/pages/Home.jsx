@@ -10,10 +10,10 @@ const Home = () => {
         <h1 className="text-2xl font-bold text-white">Daily Dua Reminder</h1>
         <div className="flex flex-row justify-between items-center pr-16">
           <h1 className="text-xl text-white pr-7">
-            <Link to="setdua">Set Dua</Link>
+            <Link to="/setdua">Set Dua</Link>
           </h1>
           <h1 className="text-xl text-white">
-            <Link to="Reminders">Your reminders</Link>
+            <Link to="/reminders">Your reminders</Link>
           </h1>
         </div>
       </div>
