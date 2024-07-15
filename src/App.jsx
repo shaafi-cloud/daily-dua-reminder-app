@@ -1,38 +1,41 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
-import TodaysDua from './Components/TodaysDua'
-import SetDua from './pages/SetDua'
-import Reminders from './pages/Reminders'
-import { DuaProvider } from './Hooks/duaProvider'
-import { ToastContainer } from 'react-toastify'
-import SignInForm from './pages/SignIn'
-import SignUpForm from './pages/SignUp'
-import Logout from './pages/Logout'
-
-
-
-
-
+// src/App.jsx
+import React from 'react';
+import { BrowserRouter as Router, NavLink, Route, Routes, useNavigate } from 'react-router-dom';
+import TodaysDua from './Components/TodaysDua';
+import { DuaProvider } from './Hooks/duaProvider';
+import { toast, ToastContainer } from 'react-toastify';
+import SignInForm from './pages/SignIn';
+import SignUpForm from './pages/SignUp';
+import Reminder from './Components/Reminder';
+import SetDuaForm from './Components/SetDuaForm';
+import { AuthProvider, useAuth } from './Components/authContext';
+import PrivateRoute from './Components/PrivateRoute';
+import Navbar from './Components/Navbar';
 const App = () => {
 
   return (
-    <div>
+    <div className='relative h-screen overflow-hidden'>
+      <AuthProvider>
       <DuaProvider>
         <Router>
-          <Routes>
-          <Route path="/" element={<SignInForm/>} />
-          <Route path='/Home' element={<Home/>}/>
-          <Route path="/signup" element={<SignUpForm />} />
-          <Route path="/reminders" element={<Reminders />} />
-          <Route path="/setdua" element={<SetDua />} />
-          </Routes>
-          <ToastContainer/>
-      </Router>
-     </DuaProvider>
+         <Navbar/>
+          <div className='body'>
+            <Routes>
+              <Route path="/signin" element={<SignInForm />} />
+              <Route path="/signup" element={<SignUpForm />} />
+              <Route path="/" element={<PrivateRoute component={TodaysDua} />} />
+              <Route path="/todaysdua" element={<PrivateRoute component={TodaysDua} />} />
+              <Route path="/reminders" element={<PrivateRoute component={Reminder} />} />
+              <Route path="/setdua" element={<PrivateRoute component={SetDuaForm} />} />
+            </Routes>
+            <ToastContainer />
+          </div>
+        </Router>
+      </DuaProvider>
+    </AuthProvider>
     </div>
-  
-  )
-}
+    
+  );
+};
 
-export default App
+export default App;

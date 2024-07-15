@@ -33,7 +33,7 @@ const SetDuaForm = () => {
   }
  
   return (
-    <div className="flex justify-center items-center h-full bg-cover bg-center"
+    <div className="flex justify-center h-screen bg-cover bg-center"
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('/prayer.jpg')`,}}>
 
@@ -41,7 +41,7 @@ const SetDuaForm = () => {
 
       <form
         onSubmit={handleFormSubmit}
-        className="bg-white p-10 rounded-xl shadow-lg flex flex-col justify-center items-center w-full max-w-md mb-12">
+        className="bg-white p-10 rounded-xl shadow-lg flex flex-col justify-center items-center w-full max-w-md mb-24 mt-10">
         <h1 className="text-4xl font-bold flex justify-center mb-4">Set Dua</h1>
         <div className="flex flex-col items-start mb-4 w-full">
           <label htmlFor="dua" className="text-xl font-semibold">

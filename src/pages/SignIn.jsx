@@ -1,3 +1,4 @@
+// src/pages/SignInForm.jsx
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../Firebase';
@@ -12,14 +13,12 @@ const SignInForm = () => {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    try{
+    try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Signed in successfully");
-      setTimeout(() => {
-        navigate('/Home');
-      }, 2000);
-    } catch (error){
-      toast.error(error.message);
+      navigate('/');
+    } catch (error) {
+      toast.error("Failed to sign in");
     }
   };
 
@@ -33,7 +32,7 @@ const SignInForm = () => {
         <h1 className="text-4xl font-bold mb-4">Sign In</h1>
         <div className="flex flex-col items-start mb-4 w-full">
           <label htmlFor="email" className="text-xl font-semibold">
-            Username:
+            Email:
           </label>
           <input
             type="email" placeholder="enter@gmail.com"

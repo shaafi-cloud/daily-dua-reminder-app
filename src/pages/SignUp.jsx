@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../Firebase';
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,17 +10,14 @@ const SignUpForm = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-
   const handleSignUp = async (e) => {
     e.preventDefault();
-    try{
+    try {
       await createUserWithEmailAndPassword(auth, email, password);
       toast.success("Signed up successfully");
-      setTimeout(() => {
-        navigate('/')
-      }, 2000);
-    } catch (error){
-      toast.error(error.message);
+      navigate('/');
+    } catch (error) {
+      toast.error("Failed to sign up");
     }
   };
 
@@ -31,13 +28,13 @@ const SignUpForm = () => {
         onSubmit={handleSignUp}
         className="bg-white p-10 rounded-xl shadow-lg flex flex-col justify-center items-center w-full max-w-md"
       >
-        <h1 className="text-4xl font-bold mb-4">Register</h1>
+        <h1 className="text-4xl font-bold mb-4">Sign Up</h1>
         <div className="flex flex-col items-start mb-4 w-full">
           <label htmlFor="email" className="text-xl font-semibold">
             Email:
           </label>
           <input
-            type="email"
+            type="email" placeholder="enter@gmail.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="p-2 border border-gray-300 rounded-xl mb-5 w-full"
@@ -49,7 +46,7 @@ const SignUpForm = () => {
             Password:
           </label>
           <input
-            type="password"
+            type="password" placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="p-2 border border-gray-300 rounded-xl mb-5 w-full"
@@ -58,13 +55,13 @@ const SignUpForm = () => {
         </div>
         <button
           type="submit"
-          className="bg-green-500 w-full border rounded-3xl px-16 py-2 text-white hover:bg-green-700 transition duration-300 ease-in-out"
-        >
+          className="bg-green-500 rounded-3xl px-16 py-2 text-white hover:bg-green-700 transition duration-300 ease-in-out w-full">
           Sign Up
         </button>
+       
         <p className="mt-4">
           Already have an account?{" "}
-          <Link to="/" className="text-blue-500 hover:underline">
+          <Link to="/signin" className="text-blue-500 hover:underline">
             Sign In
           </Link>
         </p>
