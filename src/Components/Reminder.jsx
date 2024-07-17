@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { DuaContext } from "../Hooks/duaProvider";
-import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const Reminder = () => {
@@ -14,7 +13,6 @@ const Reminder = () => {
 
   return (
     <div className="relative h-screen overflow-hidden">
-      <ToastContainer />
       <div
         className="flex justify-center h-screen bg-cover bg-center"
         style={{

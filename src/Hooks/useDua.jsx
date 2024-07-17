@@ -53,6 +53,7 @@ const useDua = () => {
 
     if (timeDifference > 0) {
       const newReminder = { dua, date, time };
+      const newReminderId = isEditing ? reminders[currentIndex].id : `reminder_${Date.now()}`;
 
       const isDuplicate = reminders.some(
         (reminder, index) => reminder.dua === dua && reminder.date === date && reminder.time === time && index !== currentIndex
@@ -65,7 +66,7 @@ const useDua = () => {
 
       if (isEditing) {
         const updatedReminders = [...reminders];
-        clearTimeout(timeoutRef.current[reminders[currentIndex]]);
+        clearTimeout(timeoutRef.current[reminders[currentIndex].id]);
         updatedReminders[currentIndex] = newReminder;
         setReminders(updatedReminders);
         toast.success('Reminder updated successfully');
@@ -73,9 +74,8 @@ const useDua = () => {
         setCurrentIndex(null);
 
         // Update in Firebase
-        set(ref(database, 'reminders/' + reminders[currentIndex].id), newReminder);
+        set(ref(database, 'reminders/' + newReminderId), newReminder);
       } else {
-        const newReminderId = `reminder_${Date.now()}`;
         const updatedReminders = [...reminders, { ...newReminder, id: newReminderId }];
         setReminders(updatedReminders);
         toast.success('Reminder set successfully');
@@ -91,7 +91,7 @@ const useDua = () => {
         playNotificationSound(dua);
       }, timeDifference);
 
-      timeoutRef.current[newReminder] = timeoutId;
+      timeoutRef.current[newReminderId] = timeoutId;
 
       setDua('');
       setDate('');
@@ -103,15 +103,20 @@ const useDua = () => {
 
   const handleDelete = (index) => {
     const reminderToDelete = reminders[index];
-    clearTimeout(timeoutRef.current[reminderToDelete]);
-
-    const updatedReminders = reminders.filter((_, i) => i !== index);
-    setReminders(updatedReminders);
+    clearTimeout(timeoutRef.current[reminderToDelete.id]);
 
     // Delete from Firebase
-    remove(ref(database, 'reminders/' + reminderToDelete.id));
+    remove(ref(database, 'reminders/' + reminderToDelete.id))
+      .then(() => {
+        toast.success("Reminder deleted successfully!");
 
-    toast.success("Reminder deleted successfully!");
+        // Update local state after successful deletion from Firebase
+        const updatedReminders = reminders.filter((_, i) => i !== index);
+        setReminders(updatedReminders);
+      })
+      .catch((error) => {
+        toast.error('Failed to delete reminder');
+      });
   };
 
   const handleEdit = (index) => {

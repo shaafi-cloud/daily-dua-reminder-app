@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../Firebase';
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const SignUpForm = () => {
@@ -12,23 +12,23 @@ const SignUpForm = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       toast.success("Signed up successfully");
-      navigate('/');
+      navigate('/signin');
     } catch (error) {
-      toast.error("Failed to sign up");
+      toast.error(error.message);
     }
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
-      <ToastContainer />
       <form
         onSubmit={handleSignUp}
         className="bg-white p-10 rounded-xl shadow-lg flex flex-col justify-center items-center w-full max-w-md"
       >
-        <h1 className="text-4xl font-bold mb-4">Sign Up</h1>
+        <h1 className="text-4xl font-bold mb-4">Register</h1>
         <div className="flex flex-col items-start mb-4 w-full">
           <label htmlFor="email" className="text-xl font-semibold">
             Email:
@@ -61,7 +61,7 @@ const SignUpForm = () => {
        
         <p className="mt-4">
           Already have an account?{" "}
-          <Link to="/signin" className="text-blue-500 hover:underline">
+          <Link to="/" className="text-blue-500 hover:underline">
             Sign In
           </Link>
         </p>

@@ -1,8 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { DuaContext } from "../Hooks/duaProvider";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 
 
 
@@ -36,9 +35,6 @@ const SetDuaForm = () => {
     <div className="flex justify-center h-screen bg-cover bg-center"
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('/prayer.jpg')`,}}>
-
-      <ToastContainer />
-
       <form
         onSubmit={handleFormSubmit}
         className="bg-white p-10 rounded-xl shadow-lg flex flex-col justify-center items-center w-full max-w-md mb-24 mt-10">
