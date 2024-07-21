@@ -31,7 +31,7 @@ The Daily Dua Reminder is a web application designed to help users set and recei
 
 ## Home Page
 
-<img src="./screenshots/Home.PNG" alt="Home Page" width="400">
+<img src="./screenshots/home.PNG" alt="Home Page" width="400">
 
 
 ## Demo
