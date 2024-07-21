@@ -1,14 +1,22 @@
 // src/pages/SignInForm.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../Firebase';
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAuth } from "../Components/authContext";
 
 const SignInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/todaysdua');
+    }
+  }, [currentUser, navigate]);
 
   const handleSignIn = async (e) => {
     e.preventDefault();

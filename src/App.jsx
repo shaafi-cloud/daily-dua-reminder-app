@@ -12,7 +12,8 @@ import Navbar from './Components/Navbar';
 
 const App = () => {
   return (
-    <AuthProvider>
+    <div className='relative h-screen overflow-hidden'>
+      <AuthProvider>
       <DuaProvider>
         <Router>
           <Navbar />
@@ -29,6 +30,8 @@ const App = () => {
         </Router>
       </DuaProvider>
     </AuthProvider>
+    </div>
+    
   );
 };
 
