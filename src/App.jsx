@@ -9,7 +9,7 @@ import SetDuaForm from './Components/SetDuaForm';
 import { AuthProvider } from './Components/authContext';
 import PrivateRoute from './Components/PrivateRoute';
 import Navbar from './Components/Navbar';
-
+// application startUp starts here
 const App = () => {
   return (
     <div className='relative h-screen overflow-hidden'>
